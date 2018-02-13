@@ -76,7 +76,7 @@
             </objects>
             <point key="canvasLocation" x="121" y="98"/>
         </scene>
-        <!--Proteins-->
+        <!--Proteins List-->
         <scene sceneID="2Rb-ie-9e8">
             <objects>
                 <viewController id="Gbm-kY-iLa" customClass="ProteinsListViewController" customModule="SwiftyProteins" customModuleProvider="target" sceneMemberID="viewController">
@@ -87,34 +87,19 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="TWk-AZ-bLM">
                                 <rect key="frame" x="0.0" y="32" width="375" height="667"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <searchBar key="tableHeaderView" contentMode="redraw" placeholder="search" id="vaq-ko-xGR">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                    <color key="barTintColor" red="0.87467616579999996" green="0.87467616579999996" blue="0.87467616579999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" autocorrectionType="no"/>
+                                    <scopeButtonTitles>
+                                        <string>Title</string>
+                                        <string>Title</string>
+                                    </scopeButtonTitles>
+                                </searchBar>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="search" id="idI-u4-2lA" customClass="SearchTableViewCell" customModule="SwiftyProteins" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="idI-u4-2lA" id="RXs-Ye-788">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="search " textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yN8-BD-8yj">
-                                                    <rect key="frame" x="37.5" y="7" width="300" height="30"/>
-                                                    <nil key="textColor"/>
-                                                    <textInputTraits key="textInputTraits" autocorrectionType="no"/>
-                                                </textField>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="yN8-BD-8yj" firstAttribute="centerY" secondItem="RXs-Ye-788" secondAttribute="centerYWithinMargins" id="HJp-jm-ELL"/>
-                                                <constraint firstItem="yN8-BD-8yj" firstAttribute="height" secondItem="RXs-Ye-788" secondAttribute="height" multiplier="0.7" id="MHX-Sl-Ld9"/>
-                                                <constraint firstItem="yN8-BD-8yj" firstAttribute="width" secondItem="RXs-Ye-788" secondAttribute="width" multiplier="0.8" id="VNs-D9-hUY"/>
-                                                <constraint firstItem="yN8-BD-8yj" firstAttribute="centerX" secondItem="RXs-Ye-788" secondAttribute="centerXWithinMargins" id="sPk-ou-MRL"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <color key="backgroundColor" red="0.87467616581709839" green="0.87467616581709839" blue="0.87467616581709839" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <connections>
-                                            <outlet property="searchField" destination="yN8-BD-8yj" id="ZDy-ge-CcJ"/>
-                                        </connections>
-                                    </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="protein" textLabel="bdy-PS-2ug" rowHeight="77" style="IBUITableViewCellStyleDefault" id="jFQ-oz-8vm">
-                                        <rect key="frame" x="0.0" y="72" width="375" height="77"/>
+                                        <rect key="frame" x="0.0" y="84" width="375" height="77"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="jFQ-oz-8vm" id="w5V-0h-hqr">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="76.5"/>
@@ -146,11 +131,43 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="YL8-gA-uFV"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Proteins" id="X6X-Zq-vZK"/>
+                    <navigationItem key="navigationItem" title="Proteins List" id="X6X-Zq-vZK"/>
+                    <connections>
+                        <outlet property="proteins" destination="TWk-AZ-bLM" id="CQI-dh-6Bh"/>
+                        <outlet property="searchBar" destination="vaq-ko-xGR" id="QOt-5d-e3S"/>
+                        <segue destination="Twl-am-tFN" kind="show" identifier="showProtein" id="vOS-3w-vFh"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="buf-Rd-UY2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="880.79999999999995" y="97.601199400299862"/>
+        </scene>
+        <!--Protein-->
+        <scene sceneID="2d8-jw-jG1">
+            <objects>
+                <viewController id="Twl-am-tFN" customClass="ProteinViewController" customModule="SwiftyProteins" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="2BG-Ib-U7r">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <sceneKitView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CeH-Ak-WlE">
+                                <rect key="frame" x="0.0" y="32" width="375" height="667"/>
+                            </sceneKitView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="CeH-Ak-WlE" firstAttribute="centerY" secondItem="2BG-Ib-U7r" secondAttribute="centerYWithinMargins" id="0qh-ic-PUy"/>
+                            <constraint firstItem="CeH-Ak-WlE" firstAttribute="centerX" secondItem="2BG-Ib-U7r" secondAttribute="centerXWithinMargins" id="4je-fk-sbP"/>
+                            <constraint firstItem="CeH-Ak-WlE" firstAttribute="width" secondItem="2BG-Ib-U7r" secondAttribute="width" id="I7p-vn-NUl"/>
+                            <constraint firstItem="CeH-Ak-WlE" firstAttribute="height" secondItem="2BG-Ib-U7r" secondAttribute="height" id="tOV-7p-Dap"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="VK7-fs-8Hr"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Protein" id="8aR-9t-GPy"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="p3M-Qw-r1t" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1562" y="98"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="0K6-6Z-C2s">
