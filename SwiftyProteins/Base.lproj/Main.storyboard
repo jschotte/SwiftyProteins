@@ -102,11 +102,11 @@
                                         <rect key="frame" x="0.0" y="84" width="375" height="77"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="jFQ-oz-8vm" id="w5V-0h-hqr">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="76.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="77"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="bdy-PS-2ug">
-                                                    <rect key="frame" x="15" y="0.0" width="345" height="76.5"/>
+                                                    <rect key="frame" x="15" y="0.0" width="345" height="76"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -140,7 +140,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="buf-Rd-UY2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="880.79999999999995" y="97.601199400299862"/>
+            <point key="canvasLocation" x="854" y="98"/>
         </scene>
         <!--Protein-->
         <scene sceneID="2d8-jw-jG1">
@@ -153,6 +153,14 @@
                             <sceneKitView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CeH-Ak-WlE">
                                 <rect key="frame" x="0.0" y="32" width="375" height="667"/>
                             </sceneKitView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Iep-1p-hbO">
+                                <rect key="frame" x="301" y="617" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="saveAsImage:" destination="Twl-am-tFN" eventType="touchUpInside" id="goz-hF-DNq"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -164,6 +172,9 @@
                         <viewLayoutGuide key="safeArea" id="VK7-fs-8Hr"/>
                     </view>
                     <navigationItem key="navigationItem" title="Protein" id="8aR-9t-GPy"/>
+                    <connections>
+                        <outlet property="gameView" destination="CeH-Ak-WlE" id="yjX-ul-ZdW"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="p3M-Qw-r1t" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

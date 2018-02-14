@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 class ProteinsListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate
 {
     
@@ -35,8 +36,8 @@ class ProteinsListViewController: UIViewController, UITableViewDelegate, UITable
                 
                 ArrayProteins = fulltext.components(separatedBy: "\n") as [String]
             }
-            catch let error as NSError {
-                print("Error: \(error)")
+            catch (let err){
+                displayError(e: err as NSError)
             }
         }
         
@@ -94,22 +95,65 @@ class ProteinsListViewController: UIViewController, UITableViewDelegate, UITable
         print("select row")
         if (isSearching)
         {
-            self.performSegue(withIdentifier: "showProtein", sender: filtered[indexPath.row])
+            //self.performSegue(withIdentifier: "showProtein", sender: filtered[indexPath.row])
+            getProtein(lig: filtered[indexPath.row] as String);
+
         }
         else
         {
-            self.performSegue(withIdentifier: "showProtein", sender: ArrayProteins[indexPath.row])
+            //self.performSegue(withIdentifier: "showProtein", sender: ArrayProteins[indexPath.row])
+            getProtein(lig: ArrayProteins[indexPath.row] as String);
+
+        }
+    }
+    
+    func displayError(e: NSError)
+    {
+        let myalert = UIAlertController(title: "Error", message: NSError.description(), preferredStyle: UIAlertControllerStyle.alert)
+        
+        myalert.addAction(UIAlertAction(title: "OK", style: .default) { (action:UIAlertAction!) in
+            print("Selected")
+        })
+        self.present(myalert, animated: true)
+    }
+    
+    func getProtein(lig: String)
+    {
+        let myURLString = "https://files.rcsb.org/ligands/view/\(lig)_model.pdb"
+        guard let myURL = URL(string: myURLString) else
+        {
+            let myalert = UIAlertController(title: "Error", message: "url invalid", preferredStyle: UIAlertControllerStyle.alert)
+            
+            myalert.addAction(UIAlertAction(title: "OK", style: .default) { (action:UIAlertAction!) in
+                print("Selected")
+            })
+            self.present(myalert, animated: true)
+            return
+        }
+        
+        do
+        {
+            let myHTMLString = try String(contentsOf: myURL, encoding: .ascii)
+            DispatchQueue.main.async
+            {
+                self.performSegue(withIdentifier: "showProtein", sender: (myHTMLString, lig))
+            }
+        }
+        catch (let err){
+            displayError(e: err as NSError)
         }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
-        print("show protein \(String(describing: sender))")
+        //print("show protein \(String(describing: sender!))")
+        let c = sender as? (String, String)
         if segue.identifier == "showProtein"
         {
-            if segue.destination is ProteinViewController
+            if let vc = segue.destination as? ProteinViewController
             {
-                
+                vc.title = c?.1
+                vc.dataRaw = (c?.0)!
             }
         }
     }
