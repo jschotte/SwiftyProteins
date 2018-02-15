@@ -19,20 +19,39 @@ class ProteinViewController: UIViewController {
     var cameraNode:SCNNode!
     var targetCreation:TimeInterval = 0
     
+    @IBOutlet weak var labelAtom: UILabel!
     var ArrayAtoms:[String] = []
+    
     var Atoms:[SCNNode] = []
+    var Link:[SCNNode] = []
+    
+    @IBAction func share(_ sender: Any)
+    {
+        let activityVc = UIActivityViewController(activityItems: [gameView.snapshot()], applicationActivities: nil)
+        activityVc.popoverPresentationController?.sourceView = self.view
+        
+        self.present(activityVc, animated: true, completion: nil)
+    }
     
     @IBAction func saveAsImage(_ sender: Any)
     {
         UIImageWriteToSavedPhotosAlbum(gameView.snapshot(), nil,nil,nil)
     }
+    
     override func viewDidLoad()
     {
         super.viewDidLoad()
-       // print(dataRaw)
         initView()
         initScene()
         initCamera()
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap(rec:)))
+        
+        let doubletap = UITapGestureRecognizer(target: self, action: #selector(handleTap(rec:)))
+        doubletap.numberOfTapsRequired = 2
+        
+        gameView.addGestureRecognizer(tap)
+        gameView.addGestureRecognizer(doubletap)
         
         ArrayAtoms = dataRaw.components(separatedBy: "\n") as [String]
         
@@ -41,7 +60,7 @@ class ProteinViewController: UIViewController {
             let split = atom.split(separator: " ")
             if (split.count > 0 && split[0] == "ATOM")
             {
-                createAtom(pos: SCNVector3(x:Float(split[6])!, y:Float(split[7])!, z:Float(split[8])!), color: getColor(color:String(split[11])))
+                createAtom(pos: SCNVector3(x:Float(split[6])!, y:Float(split[7])!, z:Float(split[8])!), color: getColor(color:String(split[11])), name: String(split[11]))
             }
             else if (split.count > 0 && split[0] == "CONECT")
             {
@@ -51,12 +70,12 @@ class ProteinViewController: UIViewController {
                     {
                         if (Int(split[i])! - 1 < Atoms.count)
                         {
-                            print("Link \(split[1]) to \(split[i])")
+                            //print("Link \(split[1]) to \(split[i])")
                             createLink(first: Atoms[Int(split[1])! - 1], second: Atoms[Int(split[i])! - 1])
                         }
                         else
                         {
-                            print("Atoms \(Int(split[i])!) don't exitst ")
+                            //print("Atoms \(Int(split[i])!) don't exitst ")
                         }
                     }
                     else
@@ -65,11 +84,55 @@ class ProteinViewController: UIViewController {
                     }
                 }
             }
-
         }
-        
-
-
+    }
+    
+    @objc func handleTap(rec: UITapGestureRecognizer)
+    {
+       // print("click atom")
+        if rec.state == .ended
+        {
+            let location: CGPoint = rec.location(in: gameView)
+            let hits = self.gameView.hitTest(location, options: nil)
+            if !hits.isEmpty
+            {
+                let tappedNode = hits.first?.node
+                if tappedNode?.geometry is SCNSphere || tappedNode?.geometry is SCNCylinder
+                {
+                    if (rec.numberOfTapsRequired == 2)
+                    {
+                        print("double tap")
+                        for node in Atoms
+                        {
+                            if node.name != tappedNode?.name
+                            {
+                                node.opacity = 0.2
+                            }
+                        }
+                        for node in Link
+                        {
+                            if node.name != tappedNode?.name
+                            {
+                                node.opacity = 0.2
+                            }
+                        }
+                    }
+                    else
+                    {
+                        labelAtom.text = "Atom selected: \(String(describing: (tappedNode?.name)!))"
+                        
+                        for node in Atoms
+                        {
+                            node.opacity = 1
+                        }
+                        for node in Link
+                        {
+                            node.opacity = 1
+                        }
+                    }
+                }
+            }
+        }
     }
 
     func getColor(color:String) -> UIColor
@@ -115,6 +178,41 @@ class ProteinViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func changeBallsState(_ sender: UISwitch)
+    {
+        if (!sender.isOn)
+        {
+            for node in Atoms
+            {
+                node.isHidden = true
+            }
+        }
+        else
+        {
+            for node in Atoms
+            {
+                node.isHidden = false
+            }
+        }
+    }
+    
+    @IBAction func changeStickState(_ sender: UISwitch)
+    {
+        if (!sender.isOn)
+        {
+            for node in Link
+            {
+                node.isHidden = true
+            }
+        }
+        else
+        {
+            for node in Link
+            {
+                node.isHidden = false
+            }
+        }
+    }
     
     func initView()
     {
@@ -138,16 +236,17 @@ class ProteinViewController: UIViewController {
         
         cameraNode.position = SCNVector3(x:0, y:0, z:10)
         
-        //gameScene.rootNode.addChildNode(cameraNode)
+       // gameScene.rootNode.addChildNode(cameraNode)
     }
 
-    func  createAtom(pos:SCNVector3, color:UIColor)
+    func  createAtom(pos:SCNVector3, color:UIColor, name: String)
     {
         let geometry:SCNGeometry = SCNSphere(radius: 0.3)
         geometry.materials.first?.diffuse.contents = color
         
         let geometryNode = SCNNode(geometry: geometry)
         geometryNode.position = pos
+        geometryNode.name = name
         Atoms.append(geometryNode)
         gameScene.rootNode.addChildNode(geometryNode)
 
@@ -155,11 +254,18 @@ class ProteinViewController: UIViewController {
     
     func createLink(first:SCNNode, second:SCNNode)
     {
-        let geometryNode = CylinderLine(parent: gameScene.rootNode, v1: first.position, v2: second.position, radius: 0.2, radSegmentCount: 2, color: first.geometry?.materials.first?.diffuse.contents as! UIColor)
-        gameScene.rootNode.addChildNode(geometryNode)
+        let geometryNode = CylinderLine(parent: gameScene.rootNode, v1: first.position, v2: second.position, radius: 0.1, radSegmentCount: 2, color: first.geometry?.materials.first?.diffuse.contents as! UIColor, nameLink: first.name!)
         
+        for node in geometryNode.childNodes
+        {
+            node.name = first.name
+        }
+        geometryNode.name = first.name
+        gameScene.rootNode.addChildNode(geometryNode)
+
+        Link.append(geometryNode)
+
     }
-    
 }
 
 class   CylinderLine: SCNNode
@@ -169,7 +275,8 @@ class   CylinderLine: SCNNode
         v2: SCNVector3,//Destination
         radius: CGFloat,// Radius of the cylinder
         radSegmentCount: Int, // Number of faces of the cylinder
-        color: UIColor )// Color of the cylinder
+        color: UIColor,
+        nameLink: String)// Color of the cylinder
     {
         super.init()
         
@@ -185,8 +292,9 @@ class   CylinderLine: SCNNode
         //define his position
         nodeV2.position = v2
         //add it to parent
+
         parent.addChildNode(nodeV2)
-        
+
         //Align Z axis
         let zAlign = SCNNode()
         zAlign.eulerAngles.x = Float(CGFloat(Double.pi / 2))
@@ -196,9 +304,15 @@ class   CylinderLine: SCNNode
         //cyl.radialSegmentCount = radSegmentCount
         cyl.firstMaterial?.diffuse.contents = color
         
+        cyl.name = nameLink
+        
         //Create node with cylinder
         let nodeCyl = SCNNode(geometry: cyl )
         nodeCyl.position.y = -height/2
+        
+        nodeCyl.name = nameLink
+        zAlign.name = nameLink
+        
         zAlign.addChildNode(nodeCyl)
         
         //Add it to child
