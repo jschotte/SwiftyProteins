@@ -17,11 +17,19 @@ class ViewController: UIViewController {
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification(notification:)), name: Notification.Name("popToRoot"), object: nil)
 
-        if (context.canEvaluatePolicy(.deviceOwnerAuthentication, error: nil) == false)
+        if (context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil) == false)
         {
             touchID.isHidden = true;
         }
+    }
+    
+    @objc func methodOfReceivedNotification(notification: Notification)
+    {
+        self.navigationController?.popToRootViewController(animated: false)
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -29,7 +37,6 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    
     @IBAction func clickTouchId(_ sender: UIButton)
     {
 

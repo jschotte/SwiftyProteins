@@ -120,8 +120,7 @@ class ProteinsListViewController: UIViewController, UITableViewDelegate, UITable
 
         DispatchQueue.global(qos: .userInitiated).async
         {
-
-            let myURLString = "https://files.rcsb.org/ligands/view/\(lig)_model.pdb"
+            let myURLString = "https://files.rcsb.org/ligands/view/\(lig)_ideal.pdb"
             guard let myURL = URL(string: myURLString) else
             {
                 let myalert = UIAlertController(title: "Error", message: "url invalid", preferredStyle: UIAlertControllerStyle.alert)

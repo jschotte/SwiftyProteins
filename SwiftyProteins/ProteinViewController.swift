@@ -9,7 +9,8 @@
 import UIKit
 import SceneKit
 
-class ProteinViewController: UIViewController {
+class ProteinViewController: UIViewController
+{
 
     @IBOutlet weak var gameView: SCNView!
     var dataRaw : String = ""
@@ -35,9 +36,11 @@ class ProteinViewController: UIViewController {
     
     @IBAction func saveAsImage(_ sender: Any)
     {
+        
         UIImageWriteToSavedPhotosAlbum(gameView.snapshot(), nil,nil,nil)
     }
     
+
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -48,10 +51,13 @@ class ProteinViewController: UIViewController {
         let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap(rec:)))
         
         let doubletap = UITapGestureRecognizer(target: self, action: #selector(handleTap(rec:)))
+        
+
         doubletap.numberOfTapsRequired = 2
         
         gameView.addGestureRecognizer(tap)
         gameView.addGestureRecognizer(doubletap)
+
         
         ArrayAtoms = dataRaw.components(separatedBy: "\n") as [String]
         
@@ -85,6 +91,16 @@ class ProteinViewController: UIViewController {
                 }
             }
         }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool)
+    {
+        gameView.isPlaying = false
+        for node in gameScene.rootNode.childNodes
+        {
+            node.removeFromParentNode()
+        }
+        print("quit")
     }
     
     @objc func handleTap(rec: UITapGestureRecognizer)
@@ -214,6 +230,8 @@ class ProteinViewController: UIViewController {
         }
     }
     
+
+    
     func initView()
     {
         //gameView = self.view as!SCNView
@@ -235,8 +253,7 @@ class ProteinViewController: UIViewController {
         cameraNode.camera = SCNCamera()
         
         cameraNode.position = SCNVector3(x:0, y:0, z:10)
-        
-       // gameScene.rootNode.addChildNode(cameraNode)
+        //gameScene.rootNode.addChildNode(cameraNode)
     }
 
     func  createAtom(pos:SCNVector3, color:UIColor, name: String)
