@@ -24,10 +24,7 @@ class ProteinsListViewController: UIViewController, UITableViewDelegate, UITable
         super.viewDidLoad()
         
         searchBar.delegate = self
-        
-        //navigationController?.interactivePopGestureRecognizer?.isEnabled = false
 
-        
         let path = Bundle.main.path(forResource: "ligand", ofType: "txt")
         
         let filemgr = FileManager.default
@@ -76,17 +73,15 @@ class ProteinsListViewController: UIViewController, UITableViewDelegate, UITable
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String)
     {
-    
         if (searchBar.text == nil || searchBar.text == "")
         {
             isSearching = false
-            
             view.endEditing(true)
+            proteins.reloadData()
         }
         else
         {
             isSearching = true
-            
             filtered = ArrayProteins.filter({$0.contains(searchText)})
             proteins.reloadData()
         }

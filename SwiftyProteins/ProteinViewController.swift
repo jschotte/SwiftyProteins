@@ -109,7 +109,6 @@ class ProteinViewController: UIViewController
     
     @objc func handleTap(rec: UITapGestureRecognizer)
     {
-       // print("click atom")
         if rec.state == .ended
         {
             let location: CGPoint = rec.location(in: gameView)
@@ -157,6 +156,9 @@ class ProteinViewController: UIViewController
 
     func getColor(color:String) -> UIColor
     {
+        /*let atomColors: [String: UIColor] = ["H": .white,
+                                             "C": .black]
+        return atomColors[color] ?? UIColor(red: 1, green: 0.71, blue: 0.76, alpha: 1)*/
         switch color {
         case "H":
             return UIColor.white
@@ -297,7 +299,6 @@ class ProteinViewController: UIViewController
         gameScene.rootNode.addChildNode(geometryNode)
 
         Link.append(geometryNode)
-
     }
 }
 
@@ -321,8 +322,7 @@ class   CylinderLine: SCNNode
         parent.addChildNode(nodeV2)
 
         let zAlign = SCNNode()
-        zAlign.eulerAngles.x = Float(CGFloat(Double.pi / 2))
-        zAlign.eulerAngles.z = -Float(CGFloat(Double.pi / 2))
+        zAlign.eulerAngles.x = .pi / 2// Float(CGFloat(Double.pi / 2))
 
         let cyl = SCNCylinder(radius: radius, height: CGFloat(height))
         cyl.firstMaterial?.diffuse.contents = color
