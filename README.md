@@ -4,5 +4,5 @@
 
 ![](https://github.com/jschotte/SwiftyProteins/blob/master/screenshots/4.png?raw=true)![](https://github.com/jschotte/SwiftyProteins/blob/master/screenshots/5.png?raw=true)![](https://github.com/jschotte/SwiftyProteins/blob/master/screenshots/6.png?raw=true)
 
-![](https://github.com/jschotte/SwiftyProteins/blob/master/screenshots/7.png?raw=true)![](https://github.com/jschotte/SwiftyProteins/blob/master/screenshots/8.png?raw=true)
+![](https://github.com/jschotte/SwiftyProteins/blob/master/screenshots/7.png?raw=true)![](https://github.com/jschotte/SwiftyProteins/blob/master/screenshots/8.png?raw=true)![](https://github.com/jschotte/SwiftyProteins/blob/master/screenshots/9.png?raw=true)
 
