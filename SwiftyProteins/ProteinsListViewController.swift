@@ -25,7 +25,7 @@ class ProteinsListViewController: UIViewController, UITableViewDelegate, UITable
         
         searchBar.delegate = self
         
-        let path = Bundle.main.path(forResource: "ligands", ofType: "txt")
+        let path = Bundle.main.path(forResource: "ligand", ofType: "txt")
         
         let filemgr = FileManager.default
         if (filemgr.fileExists(atPath: path!))

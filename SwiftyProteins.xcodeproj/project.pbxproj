@@ -7,10 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E213BFA6203AC50C00D24EFA /* ligand.txt in Resources */ = {isa = PBXBuildFile; fileRef = E213BFA5203AC50C00D24EFA /* ligand.txt */; };
 		E21E108B2032F136008FF75C /* ProteinsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E21E108A2032F136008FF75C /* ProteinsListViewController.swift */; };
 		E21E108D2032F174008FF75C /* ligands.txt in Resources */ = {isa = PBXBuildFile; fileRef = E21E108C2032F174008FF75C /* ligands.txt */; };
 		E21E108F20331106008FF75C /* ProteinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E21E108E20331106008FF75C /* ProteinViewController.swift */; };
-		E235F0BE20385E070011CCCC /* ScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E235F0BD20385E070011CCCC /* ScreenViewController.swift */; };
 		E2B7D0E12032E1A000E267DD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B7D0E02032E1A000E267DD /* AppDelegate.swift */; };
 		E2B7D0E32032E1A000E267DD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B7D0E22032E1A000E267DD /* ViewController.swift */; };
 		E2B7D0E62032E1A000E267DD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E2B7D0E42032E1A000E267DD /* Main.storyboard */; };
@@ -19,10 +19,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E213BFA5203AC50C00D24EFA /* ligand.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = ligand.txt; sourceTree = "<group>"; };
 		E21E108A2032F136008FF75C /* ProteinsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProteinsListViewController.swift; sourceTree = "<group>"; };
 		E21E108C2032F174008FF75C /* ligands.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = ligands.txt; path = ../../../Downloads/ligands.txt; sourceTree = "<group>"; };
 		E21E108E20331106008FF75C /* ProteinViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProteinViewController.swift; sourceTree = "<group>"; };
-		E235F0BD20385E070011CCCC /* ScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenViewController.swift; sourceTree = "<group>"; };
 		E2B7D0DD2032E1A000E267DD /* SwiftyProteins.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftyProteins.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2B7D0E02032E1A000E267DD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E2B7D0E22032E1A000E267DD /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -68,9 +68,9 @@
 				E21E108A2032F136008FF75C /* ProteinsListViewController.swift */,
 				E2B7D0E42032E1A000E267DD /* Main.storyboard */,
 				E21E108C2032F174008FF75C /* ligands.txt */,
+				E213BFA5203AC50C00D24EFA /* ligand.txt */,
 				E2B7D0E72032E1A000E267DD /* Assets.xcassets */,
 				E2B7D0E92032E1A000E267DD /* LaunchScreen.storyboard */,
-				E235F0BD20385E070011CCCC /* ScreenViewController.swift */,
 				E2B7D0EC2032E1A000E267DD /* Info.plist */,
 			);
 			path = SwiftyProteins;
@@ -136,6 +136,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E2B7D0EB2032E1A000E267DD /* LaunchScreen.storyboard in Resources */,
+				E213BFA6203AC50C00D24EFA /* ligand.txt in Resources */,
 				E2B7D0E82032E1A000E267DD /* Assets.xcassets in Resources */,
 				E2B7D0E62032E1A000E267DD /* Main.storyboard in Resources */,
 				E21E108D2032F174008FF75C /* ligands.txt in Resources */,
@@ -150,7 +151,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				E2B7D0E32032E1A000E267DD /* ViewController.swift in Sources */,
-				E235F0BE20385E070011CCCC /* ScreenViewController.swift in Sources */,
 				E21E108B2032F136008FF75C /* ProteinsListViewController.swift in Sources */,
 				E21E108F20331106008FF75C /* ProteinViewController.swift in Sources */,
 				E2B7D0E12032E1A000E267DD /* AppDelegate.swift in Sources */,
