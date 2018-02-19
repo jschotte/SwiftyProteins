@@ -23,6 +23,7 @@ class ProteinViewController: UIViewController
     @IBOutlet weak var labelAtom: UILabel!
     var ArrayAtoms:[String] = []
     
+    @IBOutlet weak var segmentControl: UISegmentedControl!
     var Atoms:[SCNNode] = []
     var Link:[SCNNode] = []
     
@@ -36,13 +37,13 @@ class ProteinViewController: UIViewController
     
     @IBAction func saveAsImage(_ sender: Any)
     {
-        
         UIImageWriteToSavedPhotosAlbum(gameView.snapshot(), nil,nil,nil)
     }
 
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        segmentControl.selectedSegmentIndex = 0
         initView()
         initScene()
         initCamera()
@@ -51,7 +52,6 @@ class ProteinViewController: UIViewController
         
         let doubletap = UITapGestureRecognizer(target: self, action: #selector(handleTap(rec:)))
         
-
         doubletap.numberOfTapsRequired = 2
         
         gameView.addGestureRecognizer(tap)
@@ -76,10 +76,7 @@ class ProteinViewController: UIViewController
                         {
                             //print("Link \(split[1]) to \(split[i])")
                             createLink(first: Atoms[Int(split[1])! - 1], second: Atoms[Int(split[i])! - 1])
-                        }
-                        else
-                        {
-                            //print("Atoms \(Int(split[i])!) don't exitst ")
+                            
                         }
                     }
                     else
@@ -99,13 +96,8 @@ class ProteinViewController: UIViewController
         {
             gameView.pointOfView = nil
         }
-        
-        
         print("quit")
     }
-    
-    @IBOutlet weak var ballSwitch: UISwitch!
-    @IBOutlet weak var stickSwitch: UISwitch!
     
     @objc func handleTap(rec: UITapGestureRecognizer)
     {
@@ -204,7 +196,6 @@ class ProteinViewController: UIViewController
     {
         if (sender.isOn)
         {
-            stickSwitch.isEnabled = false
             for node in Atoms
             {
                 node.isHidden = true
@@ -212,10 +203,53 @@ class ProteinViewController: UIViewController
         }
         else
         {
-            stickSwitch.isEnabled = true
             for node in Atoms
             {
                 node.isHidden = false
+            }
+        }
+    }
+    @IBAction func segmentChange(_ sender: UISegmentedControl)
+    {
+        if (sender.selectedSegmentIndex == 0)
+        {
+            for node in Link
+            {
+                node.isHidden = false
+            }
+            for node in Atoms
+            {
+                node.isHidden = false
+            }
+            for atom in Atoms
+            {
+                atom.scale =  SCNVector3 (1.0, 1.0, 1.0)
+            }
+        }
+        else if (sender.selectedSegmentIndex == 1)
+        {
+            for node in Link
+            {
+                node.isHidden = true
+            }
+            for node in Atoms
+            {
+                node.isHidden = false
+            }
+            for atom in Atoms
+            {
+                atom.scale =  SCNVector3 (3.5, 3.5, 3.5)
+            }
+        }
+        else
+        {
+            for node in Link
+            {
+                node.isHidden = false
+            }
+            for node in Atoms
+            {
+                node.isHidden = true
             }
         }
     }
@@ -224,7 +258,6 @@ class ProteinViewController: UIViewController
     {
         if (sender.isOn)
         {
-            ballSwitch.isEnabled = false
             for node in Link
             {
                 node.isHidden = true
@@ -236,7 +269,6 @@ class ProteinViewController: UIViewController
         }
         else
         {
-            ballSwitch.isEnabled = true
             for node in Link
             {
                 node.isHidden = false
@@ -322,8 +354,15 @@ class   CylinderLine: SCNNode
         parent.addChildNode(nodeV2)
 
         let zAlign = SCNNode()
-        zAlign.eulerAngles.x = .pi / 2// Float(CGFloat(Double.pi / 2))
-
+        if (v1.x == v2.x && v1.z < v2.z)
+        {
+            zAlign.eulerAngles.x = -(.pi / 2)
+        }
+        else
+        {
+            zAlign.eulerAngles.x = .pi / 2
+        }
+        
         let cyl = SCNCylinder(radius: radius, height: CGFloat(height))
         cyl.firstMaterial?.diffuse.contents = color
         cyl.name = nameLink
