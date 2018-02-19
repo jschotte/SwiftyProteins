@@ -154,7 +154,7 @@
                                 <rect key="frame" x="0.0" y="32" width="375" height="667"/>
                             </sceneKitView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Atom selected: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I6s-RV-6Hu">
-                                <rect key="frame" x="16" y="77" width="188" height="21"/>
+                                <rect key="frame" x="16" y="77" width="188.5" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -166,26 +166,26 @@
                                     <action selector="saveAsImage:" destination="Twl-am-tFN" eventType="touchUpInside" id="goz-hF-DNq"/>
                                 </connections>
                             </button>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TrX-G7-6ta">
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="TrX-G7-6ta">
                                 <rect key="frame" x="16" y="618" width="51" height="31"/>
                                 <connections>
                                     <action selector="changeBallsState:" destination="Twl-am-tFN" eventType="valueChanged" id="0mB-j8-YdA"/>
                                 </connections>
                             </switch>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="E8L-ly-z0J">
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="E8L-ly-z0J">
                                 <rect key="frame" x="84" y="618" width="51" height="31"/>
                                 <connections>
                                     <action selector="changeStickState:" destination="Twl-am-tFN" eventType="valueChanged" id="LYa-Md-ChO"/>
                                 </connections>
                             </switch>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Balls" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FO4-xF-IwR">
-                                <rect key="frame" x="25" y="589" width="37" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Stick" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FO4-xF-IwR">
+                                <rect key="frame" x="25" y="589" width="38" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Stick" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9jn-H4-yKG">
-                                <rect key="frame" x="91" y="589" width="38" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Balls" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9jn-H4-yKG">
+                                <rect key="frame" x="92" y="589" width="36.5" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -221,8 +221,10 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="ballSwitch" destination="TrX-G7-6ta" id="WWn-3h-u5H"/>
                         <outlet property="gameView" destination="CeH-Ak-WlE" id="yjX-ul-ZdW"/>
                         <outlet property="labelAtom" destination="I6s-RV-6Hu" id="qSQ-bn-WTq"/>
+                        <outlet property="stickSwitch" destination="E8L-ly-z0J" id="RG2-vB-Vfl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="p3M-Qw-r1t" userLabel="First Responder" sceneMemberID="firstResponder"/>

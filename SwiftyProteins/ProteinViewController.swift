@@ -39,7 +39,6 @@ class ProteinViewController: UIViewController
         
         UIImageWriteToSavedPhotosAlbum(gameView.snapshot(), nil,nil,nil)
     }
-    
 
     override func viewDidLoad()
     {
@@ -58,7 +57,6 @@ class ProteinViewController: UIViewController
         gameView.addGestureRecognizer(tap)
         gameView.addGestureRecognizer(doubletap)
 
-        
         ArrayAtoms = dataRaw.components(separatedBy: "\n") as [String]
         
         for atom in ArrayAtoms
@@ -93,15 +91,21 @@ class ProteinViewController: UIViewController
         }
     }
     
-    override func viewWillDisappear(_ animated: Bool)
+    override func viewDidDisappear(_ animated: Bool)
     {
         gameView.isPlaying = false
-        for node in gameScene.rootNode.childNodes
+        
+        if isMovingFromParentViewController
         {
-            node.removeFromParentNode()
+            gameView.pointOfView = nil
         }
+        
+        
         print("quit")
     }
+    
+    @IBOutlet weak var ballSwitch: UISwitch!
+    @IBOutlet weak var stickSwitch: UISwitch!
     
     @objc func handleTap(rec: UITapGestureRecognizer)
     {
@@ -196,8 +200,9 @@ class ProteinViewController: UIViewController
     
     @IBAction func changeBallsState(_ sender: UISwitch)
     {
-        if (!sender.isOn)
+        if (sender.isOn)
         {
+            stickSwitch.isEnabled = false
             for node in Atoms
             {
                 node.isHidden = true
@@ -205,6 +210,7 @@ class ProteinViewController: UIViewController
         }
         else
         {
+            stickSwitch.isEnabled = true
             for node in Atoms
             {
                 node.isHidden = false
@@ -214,18 +220,28 @@ class ProteinViewController: UIViewController
     
     @IBAction func changeStickState(_ sender: UISwitch)
     {
-        if (!sender.isOn)
+        if (sender.isOn)
         {
+            ballSwitch.isEnabled = false
             for node in Link
             {
                 node.isHidden = true
             }
+            for atom in Atoms
+            {
+                atom.scale =  SCNVector3 (3.5, 3.5, 3.5)
+            }
         }
         else
         {
+            ballSwitch.isEnabled = true
             for node in Link
             {
                 node.isHidden = false
+            }
+            for atom in Atoms
+            {
+                atom.scale =  SCNVector3 (1.0, 1.0, 1.0)
             }
         }
     }
@@ -287,55 +303,39 @@ class ProteinViewController: UIViewController
 
 class   CylinderLine: SCNNode
 {
-    init( parent: SCNNode,//Needed to line to your scene
-        v1: SCNVector3,//Source
-        v2: SCNVector3,//Destination
-        radius: CGFloat,// Radius of the cylinder
-        radSegmentCount: Int, // Number of faces of the cylinder
+    init( parent: SCNNode,
+        v1: SCNVector3,
+        v2: SCNVector3,
+        radius: CGFloat,
+        radSegmentCount: Int,
         color: UIColor,
-        nameLink: String)// Color of the cylinder
+        nameLink: String)
     {
         super.init()
         
-        //Calcul the height of our line
         let  height = v1.distance(receiver: v2) / 2
-        
-        //set position to v1 coordonate
         position = v1
         
-        //Create the second node to draw direction vector
         let nodeV2 = SCNNode()
-        
-        //define his position
         nodeV2.position = v2
-        //add it to parent
-
         parent.addChildNode(nodeV2)
 
-        //Align Z axis
         let zAlign = SCNNode()
         zAlign.eulerAngles.x = Float(CGFloat(Double.pi / 2))
-        
-        //create our cylinder
+        zAlign.eulerAngles.z = -Float(CGFloat(Double.pi / 2))
+
         let cyl = SCNCylinder(radius: radius, height: CGFloat(height))
-        //cyl.radialSegmentCount = radSegmentCount
         cyl.firstMaterial?.diffuse.contents = color
-        
         cyl.name = nameLink
         
-        //Create node with cylinder
         let nodeCyl = SCNNode(geometry: cyl )
         nodeCyl.position.y = -height/2
-        
         nodeCyl.name = nameLink
+        
         zAlign.name = nameLink
-        
         zAlign.addChildNode(nodeCyl)
-        
-        //Add it to child
         addChildNode(zAlign)
-        
-        //set constraint direction to our vector
+
         constraints = [SCNLookAtConstraint(target: nodeV2)]
     }
     
